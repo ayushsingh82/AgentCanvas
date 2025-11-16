@@ -5,20 +5,20 @@ import React from 'react';
 
 const faqs = [
   {
-    q: 'What is X402?',
-    a: 'X402 is a drag-and-drop AI agent builder that lets you design, connect, and launch powerful agents visually—no complex setup required.'
+    q: 'What is D&D?',
+    a: 'D&D is a drag-and-drop AI agent builder that lets you design, connect, and launch powerful agents visually—no complex setup required.'
   },
   {
     q: 'How does the drag-and-drop builder work?',
-    a: 'You create agents by snapping together building blocks like data sources, tools, memory, and actions. X402 handles orchestration, routing, and execution behind the scenes.'
+    a: 'You create agents by snapping together building blocks like data sources, tools, memory, and actions. D&D handles orchestration, routing, and execution behind the scenes.'
   },
   {
     q: 'Do I need to be a developer?',
-    a: 'No. X402 is built for both builders and developers. You can ship production-ready agents with a visual canvas, and add custom logic only where you need it.'
+    a: 'No. D&D is built for both builders and developers. You can ship production-ready agents with a visual canvas, and add custom logic only where you need it.'
   },
   {
     q: 'Can I deploy my agents anywhere?',
-    a: 'Yes. Agents created in X402 can be deployed to your app, website, workflows, or internal tools with simple embeds and APIs.'
+    a: 'Yes. Agents created in D&D can be deployed to your app, website, workflows, or internal tools with simple embeds and APIs.'
   },
 ];
 
@@ -31,24 +31,10 @@ export default function Landing() {
       {/* HEADER */}
       <div className="absolute top-6 left-6 z-10">
         <Link href="/" className="focus:outline-none">
-          <div className="bg-white border-2 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] px-6 py-3 rounded-lg cursor-pointer">
-            <h1 className="text-2xl font-black text-black">X402</h1>
-          </div>
+          <button className="bg-white border-2 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] px-6 py-3 rounded-lg cursor-pointer text-2xl font-black text-black">
+            logo
+          </button>
         </Link>
-      </div>
-
-      {/* SOCIAL MEDIA LINKS */}
-      <div className="absolute top-6 right-6 z-10 flex gap-3">
-        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="bg-white border-2 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] p-3 rounded-lg hover:shadow-[2px_2px_0_0_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200">
-          <svg className="w-6 h-6" fill="#000000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-          </svg>
-        </a>
-        <a href="https://telegram.org" target="_blank" rel="noopener noreferrer" className="bg-white border-2 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] p-3 rounded-lg hover:shadow-[2px_2px_0_0_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200">
-          <svg className="w-6 h-6" fill="#000000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-          </svg>
-        </a>
       </div>
      
 
@@ -61,7 +47,7 @@ export default function Landing() {
               <h3 className="text-5xl font-bold font-black text-black italic mb-2">
                 Drag-and-Drop
               </h3>
-              <h2 className="text-5xl font-black mb-2 text-black bg-white border-2 border-black px-3 py-2 rounded-lg inline-block italic">Agent Builder by X402</h2>
+              <h2 className="text-5xl font-black mb-2 text-black bg-white border-2 border-black px-3 py-2 rounded-lg inline-block italic">Agent Builder by D&amp;D</h2>
             </div>
           </div>
         </div>
@@ -69,30 +55,34 @@ export default function Landing() {
 
 
       <div className="text-center mb-6 flex flex-col md:flex-row items-center justify-center gap-6">
-      <Link href="/widget">
-          <button className="bg-white border-2 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] px-8 py-4 rounded-lg text-lg font-bold text-black hover:shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 active:shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-x-[4px] active:translate-y-[4px]">Join the Waitlist</button>
+        <Link href="/">
+          <button className="bg-white border-2 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] px-8 py-4 rounded-lg text-lg font-bold text-black hover:shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 active:shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-x-[4px] active:translate-y-[4px]">
+            Join the Waitlist
+          </button>
         </Link>
-        
-          <Link href="/widget">
-            <button className="bg-white border-2 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] px-8 py-4 rounded-lg text-lg font-bold text-black hover:shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 active:shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-x-[4px] active:translate-y-[4px]">Launch App</button>
-          </Link>
-        </div>
+
+        <Link href="/my-agents">
+          <button className="bg-white border-2 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] px-8 py-4 rounded-lg text-lg font-bold text-black hover:shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 active:shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-x-[4px] active:translate-y-[4px]">
+            Launch Agent
+          </button>
+        </Link>
+      </div>
 
       {/* MAIN CONTENT - BENTO GRID */}
       <div className="max-w-5xl mx-auto px-4 pb-20 mt-16">
         <div className="grid grid-cols-12 gap-6 auto-rows-[180px]">
-          {/* Why X402 Protocol */}
+          {/* Why D&D Agent Builder */}
           <div className="col-span-12 md:col-span-6 row-span-2 bg-white border-2 border-black shadow-[8px_8px_0_0_rgba(0,0,0,1)] p-8 rounded-2xl flex flex-col justify-center">
-            <h2 className="text-xl font-black mb-4 text-white bg-black border-2 border-black px-3 py-2 rounded-lg inline-block">Why X402 Agent Builder</h2>
+            <h2 className="text-xl font-black mb-4 text-white bg-black border-2 border-black px-3 py-2 rounded-lg inline-block">Why D&amp;D Agent Builder</h2>
             <p className="text-sm text-black leading-relaxed">
-              X402 turns complex AI agent architectures into a simple visual canvas. Drag blocks, connect flows, and ship production-ready agents
+              D&amp;D turns complex AI agent architectures into a simple visual canvas. Drag blocks, connect flows, and ship production-ready agents
               without wrestling with infrastructure, orchestration, or boilerplate code.
             </p>
           </div>
           {/* Powered by Advanced Tech */}
           <div className="col-span-12 md:col-span-6 row-span-2 bg-white border-2 border-black shadow-[8px_8px_0_0_rgba(0,0,0,1)] p-8 rounded-2xl flex flex-col justify-center">
             <h2 className="text-xl font-black mb-4 text-white bg-black border-2 border-black px-3 py-2 rounded-lg inline-block">Powered by Advanced Tech</h2>
-            <p className="text-sm text-black mb-4 leading-relaxed">Under the hood, X402 gives you serious power with simple building blocks:</p>
+            <p className="text-sm text-black mb-4 leading-relaxed">Under the hood, D&amp;D gives you serious power with simple building blocks:</p>
             <ul className="space-y-2 text-sm">
               <li className="flex items-center"><span className="w-2 h-2 rounded-full mr-3 bg-black"></span><span className="text-black font-semibold">Visual canvas for flows, tools, and memory</span></li>
               <li className="flex items-center"><span className="w-2 h-2 rounded-full mr-3 bg-black"></span><span className="text-black font-semibold">Built-in orchestration, retries, and routing</span></li>
@@ -132,7 +122,7 @@ export default function Landing() {
           <div className="col-span-12 md:col-span-4 row-span-1 bg-white border-2 border-black shadow-[8px_8px_0_0_rgba(0,0,0,1)] p-8 rounded-2xl flex flex-col justify-center">
             <h3 className="text-lg font-black mb-2 text-white bg-black border-2 border-black px-3 py-1 rounded-lg inline-block">The Future of Agents</h3>
             <p className="text-black text-sm mt-2">
-              X402 is building the next generation of AI agents—composable, visual, and production-ready from day one.
+              D&amp;D is building the next generation of AI agents—composable, visual, and production-ready from day one.
             </p>
           </div>
           {/* Enterprise-Grade Security */}
@@ -167,8 +157,29 @@ export default function Landing() {
           </div>
         </section>
 
-    
-       
+        {/* FOOTER */}
+        <footer className="mt-16 border-t-2 border-black pt-6 flex items-center justify-between text-base text-black">
+          <span className="font-black text-lg tracking-tight">D&amp;D</span>
+          <div className="flex items-center gap-5 text-xl">
+            <a
+              href="https://twitter.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-70 transition-opacity"
+            >
+              𝕏
+            </a>
+            <a
+              href="https://telegram.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-70 transition-opacity"
+            >
+              📡
+            </a>
+          </div>
+        </footer>
+
       </div>
     </div>
   );
