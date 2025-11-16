@@ -26,20 +26,10 @@ export default function Landing() {
   const [expandedFaq, setExpandedFaq] = React.useState<number | null>(null);
 
   return (
-    <div className="min-h-screen bg-white font-sans tracking-tight relative overflow-x-hidden">
-
-      {/* HEADER */}
-      <div className="absolute top-6 left-6 z-10">
-        <Link href="/" className="focus:outline-none">
-          <button className="bg-white border-2 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] px-6 py-3 rounded-lg cursor-pointer text-2xl font-black text-black">
-            logo
-          </button>
-        </Link>
-      </div>
-     
+    <div className="bg-white">
 
       {/* HERO */}
-      <div className="relative pt-[-24px] pb-8 px-4 mb-8">
+      <div className="relative pt-24 pb-8 px-4 mb-8">
         <div className="flex items-center justify-center">
           <div className="w-full max-w-5xl bg-white border-2 border-black shadow-[8px_8px_0_0_rgba(0,0,0,1)] rounded-[50%] flex items-center justify-center py-8 px-8" style={{ aspectRatio: '2/1' }}>
             <div className="text-center">
@@ -69,7 +59,7 @@ export default function Landing() {
       </div>
 
       {/* MAIN CONTENT - BENTO GRID */}
-      <div className="max-w-5xl mx-auto px-4 pb-20 mt-16">
+      <div className="max-w-5xl mx-auto px-4 pb-24 mt-16">
         <div className="grid grid-cols-12 gap-6 auto-rows-[180px]">
           {/* Why D&D Agent Builder */}
           <div className="col-span-12 md:col-span-6 row-span-2 bg-white border-2 border-black shadow-[8px_8px_0_0_rgba(0,0,0,1)] p-8 rounded-2xl flex flex-col justify-center">
@@ -134,8 +124,8 @@ export default function Landing() {
           </div>
         </div>
 
-        {/* FAQ SECTION - moved up */}
-        <section className="relative z-10 px-4 py-16 border-t border-black mt-12">
+        {/* FAQ SECTION */}
+        <section className="relative z-10 px-4 py-16 border-t border-black mt-12 mb-4">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl text-black font-black mb-8 text-center">Frequently Asked Questions</h2>
             <div className="space-y-4">
@@ -156,29 +146,6 @@ export default function Landing() {
             </div>
           </div>
         </section>
-
-        {/* FOOTER */}
-        <footer className="mt-16 border-t-2 border-black pt-6 flex items-center justify-between text-base text-black">
-          <span className="font-black text-lg tracking-tight">D&amp;D</span>
-          <div className="flex items-center gap-5 text-xl">
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:opacity-70 transition-opacity"
-            >
-              𝕏
-            </a>
-            <a
-              href="https://telegram.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:opacity-70 transition-opacity"
-            >
-              📡
-            </a>
-          </div>
-        </footer>
 
       </div>
     </div>
