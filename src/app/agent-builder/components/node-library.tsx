@@ -8,28 +8,36 @@ const availableTools = [
     label: "Deploy ERC-20",
     description: "Deploy ERC-20 token",
     icon: <Coins className="h-5 w-5" />,
-    color: "border-yellow-500 bg-yellow-100 text-yellow-500",
+    borderColor: "border-yellow-500",
+    bgColor: "bg-yellow-100",
+    textColor: "text-yellow-500",
   },
   {
     type: "deploy_erc721",
     label: "Deploy ERC-721",
     description: "Deploy ERC-721 NFT",
     icon: <ImageIcon className="h-5 w-5" />,
-    color: "border-pink-500 bg-pink-100 text-pink-500",
+    borderColor: "border-pink-500",
+    bgColor: "bg-pink-100",
+    textColor: "text-pink-500",
   },
   {
     type: "create_dao",
     label: "Create DAO",
     description: "Create a new DAO",
     icon: <Users className="h-5 w-5" />,
-    color: "border-indigo-500 bg-indigo-100 text-indigo-500",
+    borderColor: "border-indigo-500",
+    bgColor: "bg-indigo-100",
+    textColor: "text-indigo-500",
   },
   {
     type: "airdrop",
     label: "Airdrop",
     description: "Airdrop tokens to addresses",
     icon: <Gift className="h-5 w-5" />,
-    color: "border-cyan-500 bg-cyan-100 text-cyan-500",
+    borderColor: "border-cyan-500",
+    bgColor: "bg-cyan-100",
+    textColor: "text-cyan-500",
   },
 ];
 
@@ -48,10 +56,10 @@ export default function NodeLibrary() {
             key={tool.type}
             draggable
             onDragStart={(e) => onDragStart(e, tool.type)}
-            className={`p-4 border-2 ${tool.color.split(' ')[0]} bg-white rounded-lg cursor-move hover:shadow-md transition-shadow`}
+            className={`p-4 border-2 ${tool.borderColor} bg-white rounded-lg cursor-move hover:shadow-md transition-shadow`}
           >
             <div className="flex items-center gap-3">
-              <div className={`rounded-full w-10 h-10 flex items-center justify-center ${tool.color.split(' ')[1]} ${tool.color.split(' ')[2]}`}>
+              <div className={`rounded-full w-10 h-10 flex items-center justify-center ${tool.bgColor} ${tool.textColor}`}>
                 {tool.icon}
               </div>
               <div>
