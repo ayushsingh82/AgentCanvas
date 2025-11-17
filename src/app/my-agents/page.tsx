@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function MyAgentsPage() {
   return (
     <div className="min-h-screen bg-white font-sans tracking-tight flex items-center justify-center px-4">
@@ -9,9 +11,11 @@ export default function MyAgentsPage() {
         <p className="text-sm text-black mb-8">
           Create your first agent with nutshell tech and start building flows in minutes.
         </p>
-        <button className="bg-white border-2 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] px-8 py-3 rounded-lg text-sm font-bold text-black hover:shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 active:shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-x-[4px] active:translate-y-[4px]">
-          Create your first agent
-        </button>
+        <Link href="/agent-builder">
+          <button className="bg-white border-2 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] px-8 py-3 rounded-lg text-sm font-bold text-black hover:shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 active:shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-x-[4px] active:translate-y-[4px]">
+            Create your first agent
+          </button>
+        </Link>
       </div>
     </div>
   );
