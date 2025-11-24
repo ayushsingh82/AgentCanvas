@@ -28,16 +28,28 @@ import { generateNodeId, createNode } from "@/lib/workflow-utils";
 
 export const dynamic = 'force-dynamic';
 
-const toolTypes = ["memory_store", "llm_call", "webhook_receiver", "mcp_tool", "queue", "analytics"];
+const toolTypes = [
+  "memory_store_get", "memory_store_put", "memory_store_delete", "memory_store_list",
+  "queue_send", "queue_send_batch", "queue_send_delayed", "queue_consume",
+  "analytics_write", "analytics_write_batch", "analytics_query"
+];
 
 const nodeTypes: NodeTypes = {
   agent: AgentNode,
-  memory_store: ToolNode,
-  llm_call: ToolNode,
-  webhook_receiver: ToolNode,
-  mcp_tool: ToolNode,
-  queue: ToolNode,
-  analytics: ToolNode,
+  // Memory Store operations
+  memory_store_get: ToolNode,
+  memory_store_put: ToolNode,
+  memory_store_delete: ToolNode,
+  memory_store_list: ToolNode,
+  // Queue operations
+  queue_send: ToolNode,
+  queue_send_batch: ToolNode,
+  queue_send_delayed: ToolNode,
+  queue_consume: ToolNode,
+  // Analytics operations
+  analytics_write: ToolNode,
+  analytics_write_batch: ToolNode,
+  analytics_query: ToolNode,
 };
 
 const edgeTypes: EdgeTypes = {
@@ -175,7 +187,8 @@ export default function AgentBuilderPage() {
               <Panel position="top-left" className="pt-6 pl-6">
                 <button 
                   onClick={() => router.push("/my-agents")}
-                  className="bg-white border-2 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] px-5 py-2 rounded-lg text-sm font-bold text-black hover:shadow-[2px_2px_0_0_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200"
+                  className="border-2 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] px-5 py-2 rounded-lg text-sm font-bold text-black hover:shadow-[2px_2px_0_0_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200"
+                  style={{ backgroundColor: '#FFD1B3' }}
                 >
                   ← Back
                 </button>

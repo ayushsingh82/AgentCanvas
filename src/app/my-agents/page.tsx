@@ -3,7 +3,7 @@ import Link from 'next/link';
 export default function MyAgentsPage() {
   return (
     <div className="min-h-screen bg-white font-sans tracking-tight flex items-center justify-center px-4">
-      <div className="max-w-md w-full bg-white rounded-2xl p-8 text-center">
+      <div className="max-w-md w-full rounded-2xl p-8 text-center border-2 border-black shadow-[8px_8px_0_0_rgba(0,0,0,1)]" style={{ backgroundColor: '#FFD1B3' }}>
         <h1 className="text-2xl font-black mb-3 text-black">No agents yet</h1>
         <p className="text-sm text-black mb-2">
           You haven&apos;t created any agents.

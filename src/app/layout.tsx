@@ -33,7 +33,7 @@ export default function RootLayout({
           <header className="absolute top-6 left-0 right-0 z-10 flex items-center justify-between px-8">
             <div>
               <Link href="/" className="focus:outline-none">
-                <button className="bg-white border-2 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] px-6 py-4 rounded-lg cursor-pointer text-3xl font-black text-black leading-none">
+                <button className="border-2 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] px-6 py-4 rounded-lg cursor-pointer text-3xl font-black text-black leading-none" style={{ backgroundColor: '#FFD1B3' }}>
                   logo
                 </button>
               </Link>

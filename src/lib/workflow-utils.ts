@@ -31,24 +31,40 @@ export const createNode = ({
 
 const getDefaultLabel = (type: string): string => {
   const labels: Record<string, string> = {
-    memory_store: "Memory Store (KV)",
-    llm_call: "LLM Call",
-    webhook_receiver: "Webhook Receiver",
-    mcp_tool: "MCP Tool",
-    queue: "Queue",
-    analytics: "Analytics",
+    // Memory Store operations
+    memory_store_get: "Memory Store: Get",
+    memory_store_put: "Memory Store: Put",
+    memory_store_delete: "Memory Store: Delete",
+    memory_store_list: "Memory Store: List",
+    // Queue operations
+    queue_send: "Queue: Send",
+    queue_send_batch: "Queue: Send Batch",
+    queue_send_delayed: "Queue: Send Delayed",
+    queue_consume: "Queue: Consume",
+    // Analytics operations
+    analytics_write: "Analytics: Write",
+    analytics_write_batch: "Analytics: Write Batch",
+    analytics_query: "Analytics: Query",
   };
   return labels[type] || "Tool";
 };
 
 const getDefaultDescription = (type: string): string => {
   const descriptions: Record<string, string> = {
-    memory_store: "Fast key-value store for agent memory",
-    llm_call: "Call any LLM provider for AI processing",
-    webhook_receiver: "Receive and process webhook data",
-    mcp_tool: "Model Context Protocol tool integration",
-    queue: "Async message queuing for workflows",
-    analytics: "Track metrics and monitor performance",
+    // Memory Store operations
+    memory_store_get: "Retrieve value by key",
+    memory_store_put: "Store key-value pair",
+    memory_store_delete: "Remove key-value pair",
+    memory_store_list: "List all keys with prefix",
+    // Queue operations
+    queue_send: "Send single message to queue",
+    queue_send_batch: "Send multiple messages",
+    queue_send_delayed: "Schedule message for future",
+    queue_consume: "Process messages from queue",
+    // Analytics operations
+    analytics_write: "Write single metric",
+    analytics_write_batch: "Write multiple metrics",
+    analytics_query: "Query metrics with SQL",
   };
   return descriptions[type] || "Workflow tool";
 };

@@ -31,13 +31,13 @@ export default function Landing() {
       {/* HERO */}
       <div className="relative pt-24 pb-8 px-4 mb-8">
         <div className="flex items-center justify-center">
-          <div className="w-full max-w-5xl bg-white border-2 border-black shadow-[8px_8px_0_0_rgba(0,0,0,1)] rounded-[50%] flex items-center justify-center py-8 px-8" style={{ aspectRatio: '2/1' }}>
+          <div className="w-full max-w-5xl border-2 border-black shadow-[8px_8px_0_0_rgba(0,0,0,1)] rounded-[50%] flex items-center justify-center py-8 px-8" style={{ aspectRatio: '2/1', backgroundColor: '#FFD1B3' }}>
             <div className="text-center">
-              <p className="text-sm font-black mb-8 text-black border-2 border-black px-3 py-2 rounded-lg inline-block" style={{ backgroundColor: '#FFEF00' }}>Build AI agents in minutes, not weeks</p>
+              <p className="text-sm font-black mb-8 text-white border-2 border-black px-3 py-2 rounded-lg inline-block" style={{ backgroundColor: '#FF6E1A' }}>Build AI agents in minutes, not weeks</p>
               <h3 className="text-5xl font-bold font-black text-black italic mb-2">
                 Drag-and-Drop
               </h3>
-              <h2 className="text-5xl font-black mb-2 text-black border-2 border-black px-3 py-2 rounded-lg inline-block italic" style={{ backgroundColor: '#FFEF00' }}>Agent Builder by D&amp;D</h2>
+              <h2 className="text-5xl font-black mb-2 text-white border-2 border-black px-3 py-2 rounded-lg inline-block italic" style={{ backgroundColor: '#FF6E1A' }}>Agent Builder by D&amp;D</h2>
             </div>
           </div>
         </div>
@@ -46,13 +46,13 @@ export default function Landing() {
 
       <div className="text-center mb-6 flex flex-col md:flex-row items-center justify-center gap-6">
         <Link href="/">
-          <button className="bg-white border-2 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] px-8 py-4 rounded-lg text-lg font-bold text-black hover:shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 active:shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-x-[4px] active:translate-y-[4px]">
-            Join the Waitlist
+          <button className="border-2 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] px-8 py-4 rounded-lg text-lg font-bold text-white hover:shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 active:shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-x-[4px] active:translate-y-[4px]" style={{ backgroundColor: '#FF6E1A' }}>
+            Subscribe
           </button>
         </Link>
 
         <Link href="/my-agents">
-          <button className="bg-white border-2 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] px-8 py-4 rounded-lg text-lg font-bold text-black hover:shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 active:shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-x-[4px] active:translate-y-[4px]">
+          <button className="border-2 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] px-8 py-4 rounded-lg text-lg font-bold text-black hover:shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 active:shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-x-[4px] active:translate-y-[4px]" style={{ backgroundColor: '#FFD1B3' }}>
             Launch Agent
           </button>
         </Link>
@@ -109,7 +109,7 @@ export default function Landing() {
             </div>
           </div>
           {/* The Future of Agents */}
-          <div className="col-span-12 md:col-span-4 row-span-1 border-2 border-black shadow-[8px_8px_0_0_rgba(0,0,0,1)] p-8 rounded-2xl flex flex-col justify-center" style={{ backgroundColor: '#F67979' }}>
+          <div className="col-span-12 md:col-span-4 row-span-1 border-2 border-black shadow-[8px_8px_0_0_rgba(0,0,0,1)] p-8 rounded-2xl flex flex-col justify-center" style={{ backgroundColor: '#FFD1B3' }}>
             <h3 className="text-lg font-black mb-2 text-white border-2 border-black px-3 py-1 rounded-lg inline-block" style={{ backgroundColor: '#FF6E1A' }}>The Future of Agents</h3>
             <p className="text-black text-sm mt-2">
               D&amp;D is building the next generation of AI agents—composable, visual, and production-ready from day one.
@@ -129,20 +129,27 @@ export default function Landing() {
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl text-black font-black mb-8 text-center">Frequently Asked Questions</h2>
             <div className="space-y-4">
-              {faqs.map((faq, index) => (
-                <div key={index} className="border-2 border-black rounded-2xl overflow-hidden bg-white">
-                  <button
-                    onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
-                    className="w-full p-6 text-left flex items-center justify-between text-black hover:bg-black hover:text-white transition-all duration-300 focus:outline-none"
-                  >
-                    <span className="font-medium text-lg">{faq.q}</span>
-                    <span className="text-2xl">{expandedFaq === index ? '−' : '+'}</span>
-                  </button>
-                  {expandedFaq === index && (
-                    <div className="px-6 pb-6 text-black animate-fade-in bg-white">{faq.a}</div>
-                  )}
-                </div>
-              ))}
+              {faqs.map((faq, index) => {
+                // Alternate between green and orange/peach colors
+                const colors = ['#B2DBAF', '#FFD1B3', '#B2DBAF', '#FFD1B3'];
+                const bgColor = colors[index] || '#B2DBAF';
+                
+                return (
+                  <div key={index} className="border-2 border-black rounded-2xl overflow-hidden" style={{ backgroundColor: bgColor }}>
+                    <button
+                      onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
+                      className="w-full p-6 text-left flex items-center justify-between text-black hover:bg-gray-100 transition-all duration-300 focus:outline-none"
+                      style={{ backgroundColor: expandedFaq === index ? 'transparent' : bgColor }}
+                    >
+                      <span className="font-medium text-lg">{faq.q}</span>
+                      <span className="text-2xl">{expandedFaq === index ? '−' : '+'}</span>
+                    </button>
+                    {expandedFaq === index && (
+                      <div className="px-6 pb-6 text-black animate-fade-in" style={{ backgroundColor: bgColor }}>{faq.a}</div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
