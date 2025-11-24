@@ -1,43 +1,61 @@
 "use client";
 
-import { Coins, Image as ImageIcon, Users, Gift } from "lucide-react";
+import { Database, Brain, Webhook, Puzzle, List, BarChart3 } from "lucide-react";
 
 const availableTools = [
   {
-    type: "deploy_erc20",
-    label: "Deploy ERC-20",
-    description: "Deploy ERC-20 token",
-    icon: <Coins className="h-5 w-5" />,
-    borderColor: "border-yellow-500",
-    bgColor: "bg-yellow-100",
-    textColor: "text-yellow-500",
+    type: "memory_store",
+    label: "Memory Store (KV)",
+    description: "Fast key-value store for agent memory",
+    icon: <Database className="h-5 w-5" />,
+    borderColor: "border-blue-500",
+    bgColor: "bg-blue-100",
+    textColor: "text-blue-500",
   },
   {
-    type: "deploy_erc721",
-    label: "Deploy ERC-721",
-    description: "Deploy ERC-721 NFT",
-    icon: <ImageIcon className="h-5 w-5" />,
-    borderColor: "border-pink-500",
-    bgColor: "bg-pink-100",
-    textColor: "text-pink-500",
+    type: "llm_call",
+    label: "LLM Call",
+    description: "Call any LLM provider for AI processing",
+    icon: <Brain className="h-5 w-5" />,
+    borderColor: "border-purple-500",
+    bgColor: "bg-purple-100",
+    textColor: "text-purple-500",
   },
   {
-    type: "create_dao",
-    label: "Create DAO",
-    description: "Create a new DAO",
-    icon: <Users className="h-5 w-5" />,
+    type: "webhook_receiver",
+    label: "Webhook Receiver",
+    description: "Receive and process webhook data",
+    icon: <Webhook className="h-5 w-5" />,
+    borderColor: "border-green-500",
+    bgColor: "bg-green-100",
+    textColor: "text-green-500",
+  },
+  {
+    type: "mcp_tool",
+    label: "MCP Tool",
+    description: "Model Context Protocol tool integration",
+    icon: <Puzzle className="h-5 w-5" />,
+    borderColor: "border-orange-500",
+    bgColor: "bg-orange-100",
+    textColor: "text-orange-500",
+  },
+  {
+    type: "queue",
+    label: "Queue",
+    description: "Async message queuing for workflows",
+    icon: <List className="h-5 w-5" />,
     borderColor: "border-indigo-500",
     bgColor: "bg-indigo-100",
     textColor: "text-indigo-500",
   },
   {
-    type: "airdrop",
-    label: "Airdrop",
-    description: "Airdrop tokens to addresses",
-    icon: <Gift className="h-5 w-5" />,
-    borderColor: "border-cyan-500",
-    bgColor: "bg-cyan-100",
-    textColor: "text-cyan-500",
+    type: "analytics",
+    label: "Analytics",
+    description: "Track metrics and monitor performance",
+    icon: <BarChart3 className="h-5 w-5" />,
+    borderColor: "border-teal-500",
+    bgColor: "bg-teal-100",
+    textColor: "text-teal-500",
   },
 ];
 
@@ -49,7 +67,7 @@ export default function NodeLibrary() {
 
   return (
     <div className="space-y-4">
-      <h2 className="text-lg font-black text-black mb-4">Tools</h2>
+      <p className="text-xs text-gray-400 mb-4 mt-8">Drag the desired components to right and build agent</p>
       <div className="space-y-3">
         {availableTools.map((tool) => (
           <div

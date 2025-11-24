@@ -33,11 +33,11 @@ export default function Landing() {
         <div className="flex items-center justify-center">
           <div className="w-full max-w-5xl bg-white border-2 border-black shadow-[8px_8px_0_0_rgba(0,0,0,1)] rounded-[50%] flex items-center justify-center py-8 px-8" style={{ aspectRatio: '2/1' }}>
             <div className="text-center">
-              <p className="text-sm font-black mb-8 text-black bg-white border-2 border-black px-3 py-2 rounded-lg inline-block">Build AI agents in minutes, not weeks</p>
+              <p className="text-sm font-black mb-8 text-black border-2 border-black px-3 py-2 rounded-lg inline-block" style={{ backgroundColor: '#FFEF00' }}>Build AI agents in minutes, not weeks</p>
               <h3 className="text-5xl font-bold font-black text-black italic mb-2">
                 Drag-and-Drop
               </h3>
-              <h2 className="text-5xl font-black mb-2 text-black bg-white border-2 border-black px-3 py-2 rounded-lg inline-block italic">Agent Builder by D&amp;D</h2>
+              <h2 className="text-5xl font-black mb-2 text-black border-2 border-black px-3 py-2 rounded-lg inline-block italic" style={{ backgroundColor: '#FFEF00' }}>Agent Builder by D&amp;D</h2>
             </div>
           </div>
         </div>
@@ -62,16 +62,16 @@ export default function Landing() {
       <div className="max-w-5xl mx-auto px-4 pb-24 mt-16">
         <div className="grid grid-cols-12 gap-6 auto-rows-[180px]">
           {/* Why D&D Agent Builder */}
-          <div className="col-span-12 md:col-span-6 row-span-2 bg-white border-2 border-black shadow-[8px_8px_0_0_rgba(0,0,0,1)] p-8 rounded-2xl flex flex-col justify-center">
-            <h2 className="text-xl font-black mb-4 text-white bg-black border-2 border-black px-3 py-2 rounded-lg inline-block">Why D&amp;D Agent Builder</h2>
+          <div className="col-span-12 md:col-span-6 row-span-2 border-2 border-black shadow-[8px_8px_0_0_rgba(0,0,0,1)] p-8 rounded-2xl flex flex-col justify-center" style={{ backgroundColor: '#FFD1B3' }}>
+            <h2 className="text-xl font-black mb-4 text-white border-2 border-black px-3 py-2 rounded-lg inline-block" style={{ backgroundColor: '#FF6E1A' }}>Why D&amp;D Agent Builder</h2>
             <p className="text-sm text-black leading-relaxed">
               D&amp;D turns complex AI agent architectures into a simple visual canvas. Drag blocks, connect flows, and ship production-ready agents
               without wrestling with infrastructure, orchestration, or boilerplate code.
             </p>
           </div>
           {/* Powered by Advanced Tech */}
-          <div className="col-span-12 md:col-span-6 row-span-2 bg-white border-2 border-black shadow-[8px_8px_0_0_rgba(0,0,0,1)] p-8 rounded-2xl flex flex-col justify-center">
-            <h2 className="text-xl font-black mb-4 text-white bg-black border-2 border-black px-3 py-2 rounded-lg inline-block">Powered by Advanced Tech</h2>
+          <div className="col-span-12 md:col-span-6 row-span-2 border-2 border-black shadow-[8px_8px_0_0_rgba(0,0,0,1)] p-8 rounded-2xl flex flex-col justify-center" style={{ backgroundColor: '#B2DBAF' }}>
+            <h2 className="text-xl font-black mb-4 text-white border-2 border-black px-3 py-2 rounded-lg inline-block" style={{ backgroundColor: '#F67979' }}>Powered by Advanced Tech</h2>
             <p className="text-sm text-black mb-4 leading-relaxed">Under the hood, D&amp;D gives you serious power with simple building blocks:</p>
             <ul className="space-y-2 text-sm">
               <li className="flex items-center"><span className="w-2 h-2 rounded-full mr-3 bg-black"></span><span className="text-black font-semibold">Visual canvas for flows, tools, and memory</span></li>
@@ -81,8 +81,8 @@ export default function Landing() {
             </ul>
           </div>
           {/* How It Works */}
-          <div className="col-span-12 md:col-span-8 row-span-2 bg-white border-2 border-black shadow-[8px_8px_0_0_rgba(0,0,0,1)] p-8 rounded-2xl flex flex-col justify-center">
-            <h2 className="text-xl font-black mb-4 text-white bg-black border-2 border-black px-3 py-2 rounded-lg inline-block">How It Works</h2>
+          <div className="col-span-12 md:col-span-8 row-span-2 border-2 border-black shadow-[8px_8px_0_0_rgba(0,0,0,1)] p-8 rounded-2xl flex flex-col justify-center" style={{ backgroundColor: '#FFD1B3' }}>
+            <h2 className="text-xl font-black mb-4 text-white border-2 border-black px-3 py-2 rounded-lg inline-block" style={{ backgroundColor: '#FF6E1A' }}>How It Works</h2>
             <p className="text-sm text-black mb-4 leading-relaxed">In a nutshell, you go from idea to live agent in three steps:</p>
             <div className="space-y-3">
               <div className="flex items-start">
@@ -108,16 +108,16 @@ export default function Landing() {
               </div>
             </div>
           </div>
-          {/* The Future of Payments */}
-          <div className="col-span-12 md:col-span-4 row-span-1 bg-white border-2 border-black shadow-[8px_8px_0_0_rgba(0,0,0,1)] p-8 rounded-2xl flex flex-col justify-center">
-            <h3 className="text-lg font-black mb-2 text-white bg-black border-2 border-black px-3 py-1 rounded-lg inline-block">The Future of Agents</h3>
+          {/* The Future of Agents */}
+          <div className="col-span-12 md:col-span-4 row-span-1 border-2 border-black shadow-[8px_8px_0_0_rgba(0,0,0,1)] p-8 rounded-2xl flex flex-col justify-center" style={{ backgroundColor: '#F67979' }}>
+            <h3 className="text-lg font-black mb-2 text-white border-2 border-black px-3 py-1 rounded-lg inline-block" style={{ backgroundColor: '#FF6E1A' }}>The Future of Agents</h3>
             <p className="text-black text-sm mt-2">
               D&amp;D is building the next generation of AI agents—composable, visual, and production-ready from day one.
             </p>
           </div>
-          {/* Enterprise-Grade Security */}
-          <div className="col-span-12 md:col-span-4 row-span-1 bg-white border-2 border-black shadow-[8px_8px_0_0_rgba(0,0,0,1)] p-8 rounded-2xl flex flex-col justify-center">
-            <h4 className="text-lg font-bold text-white bg-black border-2 border-black px-3 py-1 rounded-lg inline-block">Enterprise-Grade Reliability</h4>
+          {/* Enterprise-Grade Reliability */}
+          <div className="col-span-12 md:col-span-4 row-span-1 border-2 border-black shadow-[8px_8px_0_0_rgba(0,0,0,1)] p-8 rounded-2xl flex flex-col justify-center" style={{ backgroundColor: '#B2DBAF' }}>
+            <h4 className="text-lg font-bold text-white border-2 border-black px-3 py-1 rounded-lg inline-block" style={{ backgroundColor: '#F67979' }}>Enterprise-Grade Reliability</h4>
             <p className="text-black text-sm mt-2">
               Built-in observability, versioning, and safe deploys so your agents behave predictably in real products and workflows.
             </p>

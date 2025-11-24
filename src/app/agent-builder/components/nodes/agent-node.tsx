@@ -5,7 +5,7 @@ import { Handle, Position, type NodeProps } from "reactflow";
 import { Bot } from "lucide-react";
 import type { NodeData } from "@/lib/types";
 
-export const AgentNode = memo(({ data, isConnectable }: NodeProps<NodeData>) => {
+export const AgentNode = memo(({ isConnectable }: NodeProps<NodeData>) => {
   return (
     <div 
       className="shadow-md rounded-md p-1 w-[120px] h-[120px]"

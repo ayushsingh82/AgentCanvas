@@ -45,6 +45,9 @@ export default function RootLayout({
             </div>
           </header>
 
+          {/* Navbar divider line */}
+          <div className="absolute top-24 left-0 right-0 h-px bg-gray-300 z-10"></div>
+
           {/* Main content */}
           <main className="flex-1 flex flex-col">
             {children}
