@@ -130,7 +130,8 @@ export function agentToMetadata(agent: IAgent): AgentMetadata {
     walletAddress: agent.walletAddress,
     agentChatURL: agent.agentChatURL,
     status: agent.status,
-    apiKeys: agent.apiKeys,
+    // Don't include apiKeys in response for security
+    apiKeys: undefined,
     createdAt: agent.createdAt.toISOString(),
     updatedAt: agent.updatedAt.toISOString(),
     deployedAt: agent.deployedAt?.toISOString(),

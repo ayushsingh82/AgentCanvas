@@ -22,13 +22,14 @@ Long-running Node.js server for CI/CD style agent deployments using NullShot fra
 
 - [x] **NullShot Integration** - Code generation complete, needs testing
 - [x] **Tool Handlers** - Hello module works, others need API endpoints
+- [x] **Module Registry** - Hello module created, ready for more modules
 - [ ] **Module Execution** - Module execution API not yet implemented
 - [ ] **Deployment Monitoring** - No real-time status updates to frontend
 
 ### ❌ Not Implemented
 
-- [ ] **Module Registry** - Need to move modules from project to server
-- [ ] **Tool Execution** - Actual module tool execution logic
+- [ ] **Additional Modules** - Only hello module exists, need tokenFactory, nftFactory, etc.
+- [ ] **Tool Execution** - Actual module tool execution logic for blockchain operations
 - [ ] **Deployment Retry** - Retry logic for failed deployments
 - [ ] **Health Checks** - Health check endpoint for monitoring
 - [ ] **Metrics** - Deployment metrics and analytics
@@ -50,8 +51,9 @@ server/
 │   └── logger.ts           # Logging utility
 ├── types/
 │   └── deploymentJob.ts    # Type definitions
-└── modules/                # Module definitions (TO BE CREATED)
-    └── hello.ts            # Hello test module
+└── modules/                # Module definitions
+    ├── hello.ts            # Hello test module (✅ Ready)
+    └── index.ts            # Module registry
 ```
 
 ### Deployment Flow

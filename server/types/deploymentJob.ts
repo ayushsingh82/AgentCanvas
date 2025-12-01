@@ -7,12 +7,14 @@ export type DeploymentJobStatus = 'pending' | 'deploying' | 'deployed' | 'failed
 export interface DeploymentJob {
   jobId: string;
   userId: string;
+  agentId?: string; // Reference to Agent document ID
   selectedModules: Array<{
     moduleName: string;
     input?: Record<string, any>;
     order?: number;
   }>;
   workflowJSON: any; // Complete workflow object
+  apiKeys?: Record<string, string | undefined>; // API keys for deployment
   status: DeploymentJobStatus;
   createdAt: Date;
   updatedAt: Date;

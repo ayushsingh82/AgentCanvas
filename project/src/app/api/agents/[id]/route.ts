@@ -39,11 +39,20 @@ export async function GET(
       }, { status: 404 });
     }
     
+    const metadata = agentToMetadata(agent);
     return NextResponse.json({
       success: true,
       agent: {
         id: agent._id.toString(),
-        ...agentToMetadata(agent),
+        name: metadata.name,
+        description: metadata.description,
+        tags: metadata.tags,
+        walletAddress: metadata.walletAddress,
+        agentChatURL: metadata.agentChatURL,
+        status: metadata.status,
+        createdAt: metadata.createdAt,
+        updatedAt: metadata.updatedAt,
+        deployedAt: metadata.deployedAt,
         modules: agent.modules,
         workflow: agent.workflow,
       },

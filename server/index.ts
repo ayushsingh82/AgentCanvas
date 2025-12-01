@@ -4,6 +4,9 @@
  * Polls MongoDB every 5 seconds for pending deployment jobs and processes them
  */
 
+// Load environment variables from .env file
+import 'dotenv/config';
+
 import { connectDB, getPendingJobs } from './services/db';
 import { DeploymentRunner } from './services/deploymentRunner';
 import { logger } from './services/logger';
@@ -30,11 +33,13 @@ class DeploymentServer {
    */
   async start(): Promise<void> {
     logger.info('🚀 Starting Deployment Server...');
+    logger.info(`📅 Server start time: ${new Date().toISOString()}`);
 
     try {
       // Connect to database
+      logger.info('🔌 Connecting to MongoDB...');
       await connectDB();
-      logger.info('✅ Database connected');
+      logger.info('✅ Database connected successfully');
 
       // Start polling loop
       this.isRunning = true;
@@ -42,11 +47,16 @@ class DeploymentServer {
 
       logger.info(`✅ Deployment server started. Polling every ${POLL_INTERVAL / 1000} seconds`);
       logger.info(`📊 Max concurrent deployments: ${MAX_CONCURRENT_DEPLOYMENTS}`);
+      logger.info('👂 Listening for deployment jobs...');
 
       // Handle graceful shutdown
       this.setupGracefulShutdown();
     } catch (error) {
       logger.error('❌ Failed to start deployment server:', error);
+      if (error instanceof Error) {
+        logger.error('Error message:', error.message);
+        logger.error('Error stack:', error.stack);
+      }
       process.exit(1);
     }
   }
@@ -55,13 +65,20 @@ class DeploymentServer {
    * Start polling loop for pending jobs
    */
   private startPolling(): void {
-    // Poll immediately on start
-    this.poll();
+    logger.info('🔄 Starting polling loop...');
+    
+    // Check for existing pending jobs on startup (with a small delay to ensure DB is ready)
+    setTimeout(() => {
+      logger.info('🔍 Checking for existing pending jobs on startup...');
+      this.poll();
+    }, 1000);
 
     // Then poll every interval
     this.pollTimer = setInterval(() => {
       this.poll();
     }, POLL_INTERVAL);
+    
+    logger.info(`⏰ Polling every ${POLL_INTERVAL / 1000} seconds`);
   }
 
   /**
@@ -79,15 +96,16 @@ class DeploymentServer {
         return;
       }
 
-      // Get pending jobs
+      // Get pending jobs (including any existing ones from previous runs)
+      logger.debug('Querying database for pending jobs...');
       const pendingJobs = await getPendingJobs();
+      logger.debug(`Query completed. Found ${pendingJobs.length} pending job(s)`);
       
       if (pendingJobs.length === 0) {
-        logger.debug('No pending jobs found');
         return;
       }
 
-      logger.info(`Found ${pendingJobs.length} pending job(s)`);
+      logger.info(`🔍 Found ${pendingJobs.length} pending job(s) (including existing):`, pendingJobs.map(j => `${j.jobId} (created: ${new Date(j.createdAt).toISOString()})`));
 
       // Process jobs (up to max concurrent)
       const availableSlots = MAX_CONCURRENT_DEPLOYMENTS - this.activeDeployments.size;
@@ -109,23 +127,51 @@ class DeploymentServer {
 
   /**
    * Process a single deployment job
+   * Handles both new jobs and existing pending jobs from previous runs
+   * Also handles stuck "deploying" jobs that need to be retried
    */
   private async processJob(job: DeploymentJob): Promise<void> {
-    const { jobId } = job;
+    const { jobId, createdAt, status } = job;
+    const jobAge = Date.now() - new Date(createdAt).getTime();
+    const jobAgeMinutes = Math.floor(jobAge / 60000);
+
+    // If job is stuck in "deploying", reset it to "pending" first
+    if (status === 'deploying') {
+      logger.warn(`⚠️ Job ${jobId} is stuck in 'deploying' status. Resetting to 'pending' for retry...`);
+      try {
+        const { updateJobStatus } = await import('./services/db');
+        await updateJobStatus(jobId, { status: 'pending' });
+        logger.info(`✅ Job ${jobId} reset to 'pending' status`);
+        // Update job object
+        job.status = 'pending';
+      } catch (error) {
+        logger.error(`❌ Failed to reset job ${jobId} status:`, error);
+        return;
+      }
+    }
 
     // Mark as active
     this.activeDeployments.add(jobId);
-    logger.info(`Processing job ${jobId} (${this.activeDeployments.size}/${MAX_CONCURRENT_DEPLOYMENTS} active)`);
+    
+    if (jobAgeMinutes > 0) {
+      logger.info(`🔄 Processing job ${jobId} (age: ${jobAgeMinutes} min, ${this.activeDeployments.size}/${MAX_CONCURRENT_DEPLOYMENTS} active)`);
+    } else {
+      logger.info(`🚀 Processing new job ${jobId} (${this.activeDeployments.size}/${MAX_CONCURRENT_DEPLOYMENTS} active)`);
+    }
 
     try {
       // Run deployment
       await this.deploymentRunner.runDeployment(job);
     } catch (error) {
-      logger.error(`Error processing job ${jobId}:`, error);
+      logger.error(`❌ Error processing job ${jobId}:`, error);
+      if (error instanceof Error) {
+        logger.error(`Error details: ${error.message}`);
+        logger.error(`Stack: ${error.stack}`);
+      }
     } finally {
       // Remove from active set
       this.activeDeployments.delete(jobId);
-      logger.debug(`Job ${jobId} completed. Active deployments: ${this.activeDeployments.size}`);
+      logger.info(`✅ Job ${jobId} completed. Active deployments: ${this.activeDeployments.size}`);
     }
   }
 

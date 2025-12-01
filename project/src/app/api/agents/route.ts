@@ -33,11 +33,22 @@ export async function GET(request: NextRequest) {
     
     return NextResponse.json({
       success: true,
-      agents: agents.map(agent => ({
-        id: agent._id.toString(),
-        ...agentToMetadata(agent),
-        modules: agent.modules,
-      })),
+      agents: agents.map(agent => {
+        const metadata = agentToMetadata(agent);
+        return {
+          id: agent._id.toString(),
+          name: metadata.name,
+          description: metadata.description,
+          tags: metadata.tags,
+          walletAddress: metadata.walletAddress,
+          agentChatURL: metadata.agentChatURL,
+          status: metadata.status,
+          createdAt: metadata.createdAt,
+          updatedAt: metadata.updatedAt,
+          deployedAt: metadata.deployedAt,
+          modules: agent.modules,
+        };
+      }),
     }, { status: 200 });
   } catch (error) {
     return NextResponse.json({
@@ -94,13 +105,14 @@ export async function POST(request: NextRequest) {
       };
     });
     
+    // apiKeys is optional - will be fetched from stored keys or env vars during deployment
     const agentData: CreateAgentRequest = {
       walletAddress,
       name,
       description,
       tags,
       modules: validatedModules,
-      apiKeys,
+      apiKeys: apiKeys || {}, // Optional - can be empty, will use stored keys or env vars
     };
     
     const agent = await createAgent(agentData);

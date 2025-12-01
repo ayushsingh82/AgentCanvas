@@ -18,10 +18,14 @@ Next.js 15 application with serverless API routes for the no-code agent builder 
 
 ### ⚠️ Partially Implemented
 
-- [x] **Module System** - Module definitions exist but will be moved to server
 - [x] **Workflow Generation** - Generates workflow JSON (tools registration)
 - [ ] **Module Execution** - Module execution endpoints not yet implemented
 - [ ] **Direct Chat Integration** - Frontend integration pending
+- [ ] **Deployment Status Polling** - No real-time status updates
+
+### 📦 Module System
+
+**Note**: Modules are now in `/server/modules/` (not in project). The backend only lists available modules, but module definitions and tool execution are handled by the deployment server.
 
 ### ❌ Not Implemented
 
