@@ -74,6 +74,9 @@ export class NullShotAgentService {
       let anthropicApiKey = apiKeys.llmKey || apiKeys.ANTHROPIC_API_KEY;
       let cloudflareAccountId = apiKeys.cloudflareAccountId;
       let cloudflareApiToken = apiKeys.cloudflareApiToken;
+      let cdpApiKeyName = apiKeys.cdpApiKeyName || apiKeys.CDP_API_KEY_NAME;
+      let cdpApiKeyPrivateKey = apiKeys.cdpApiKeyPrivateKey || apiKeys.CDP_API_KEY_PRIVATE_KEY;
+      let cdpAgentKitNetwork = apiKeys.cdpAgentKitNetwork || apiKeys.CDP_AGENT_KIT_NETWORK;
       
       // Ignore placeholder values like "your-key", "your-api-key", etc.
       // Note: "sk-ant-api03-" is the START of valid Anthropic keys, so we check for exact matches or short placeholders
@@ -131,6 +134,18 @@ export class NullShotAgentService {
               cloudflareApiToken = storedKeys.cloudflareApiToken;
               logger.info(`📦 Retrieved Cloudflare API Token from stored keys`);
             }
+            if (!cdpApiKeyName && storedKeys.cdpApiKeyName) {
+              cdpApiKeyName = storedKeys.cdpApiKeyName;
+              logger.info(`📦 Retrieved CDP API Key Name from stored keys`);
+            }
+            if (!cdpApiKeyPrivateKey && storedKeys.cdpApiKeyPrivateKey) {
+              cdpApiKeyPrivateKey = storedKeys.cdpApiKeyPrivateKey;
+              logger.info(`📦 Retrieved CDP API Key Private Key from stored keys`);
+            }
+            if (!cdpAgentKitNetwork && storedKeys.cdpAgentKitNetwork) {
+              cdpAgentKitNetwork = storedKeys.cdpAgentKitNetwork;
+              logger.info(`📦 Retrieved CDP AgentKit Network from stored keys`);
+            }
           } else {
             logger.info('⚠️ No stored API keys found in database for this user');
           }
@@ -168,6 +183,51 @@ export class NullShotAgentService {
         cloudflareApiToken = process.env.CLOUDFLARE_API_TOKEN;
         if (cloudflareApiToken) {
           logger.info(`📦 Retrieved Cloudflare API Token from environment`);
+        }
+      }
+      if (!cdpApiKeyName) {
+        cdpApiKeyName = process.env.CDP_API_KEY_NAME;
+        if (cdpApiKeyName) {
+          logger.info(`📦 Retrieved CDP API Key Name from environment`);
+        }
+      }
+      if (!cdpApiKeyPrivateKey) {
+        cdpApiKeyPrivateKey = process.env.CDP_API_KEY_PRIVATE_KEY;
+        if (cdpApiKeyPrivateKey) {
+          logger.info(`📦 Retrieved CDP API Key Private Key from environment`);
+        }
+      }
+      if (!cdpAgentKitNetwork) {
+        cdpAgentKitNetwork = process.env.CDP_AGENT_KIT_NETWORK;
+        if (cdpAgentKitNetwork) {
+          logger.info(`📦 Retrieved CDP AgentKit Network from environment`);
+        }
+      }
+      
+      // Get API_BASE_URL from job, stored keys, or environment
+      let apiBaseUrl = apiKeys.apiBaseUrl || apiKeys.API_BASE_URL;
+      if (!apiBaseUrl) {
+        // Try stored keys
+        try {
+          const mongoose = require('mongoose');
+          const ApiKeysSchema = new mongoose.Schema({}, { strict: false });
+          const ApiKeys = mongoose.models.ApiKeys || mongoose.model('ApiKeys', ApiKeysSchema);
+          const storedKeys = await ApiKeys.findOne({ walletAddress: job.userId });
+          if (storedKeys && storedKeys.apiBaseUrl) {
+            apiBaseUrl = storedKeys.apiBaseUrl;
+            logger.info(`📦 Retrieved API_BASE_URL from stored keys: ${apiBaseUrl}`);
+          }
+        } catch (error) {
+          // Ignore errors
+        }
+      }
+      if (!apiBaseUrl) {
+        apiBaseUrl = process.env.API_BASE_URL;
+        if (apiBaseUrl) {
+          logger.info(`📦 Retrieved API_BASE_URL from environment: ${apiBaseUrl}`);
+        } else {
+          logger.warn(`⚠️ No API_BASE_URL found - agent will use localhost:3000 (may not work from Cloudflare Workers)`);
+          logger.warn(`⚠️ Set API_BASE_URL environment variable or pass it in job.apiKeys`);
         }
       }
       
@@ -210,6 +270,10 @@ Use these tools when users ask you to perform blockchain operations. Always conf
         anthropicApiKey,
         cloudflareAccountId,
         cloudflareApiToken,
+        cdpApiKeyName,
+        cdpApiKeyPrivateKey,
+        cdpAgentKitNetwork,
+        apiBaseUrl,
       };
 
       const deploymentResult = await deployToCloudflare(deploymentConfig);

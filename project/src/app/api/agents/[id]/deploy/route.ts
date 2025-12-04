@@ -11,9 +11,10 @@ import mongoose from 'mongoose';
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const body = await request.json();
     const { walletAddress } = body;
     
@@ -25,7 +26,7 @@ export async function POST(
     }
     
     // Get agent
-    const agent = await getAgentByIdAndWallet(params.id, walletAddress);
+    const agent = await getAgentByIdAndWallet(id, walletAddress);
     
     if (!agent) {
       return NextResponse.json({
@@ -113,7 +114,7 @@ export async function POST(
     const deploymentJob = new DeploymentJob({
       jobId,
       userId: walletAddress,
-      agentId: params.id, // Reference to Agent document
+      agentId: id, // Reference to Agent document
       selectedModules: agent.modules,
       workflowJSON: {
         ...workflow,
@@ -131,7 +132,7 @@ export async function POST(
       jobId,
       message: 'Deployment job created. The deployment server will process it shortly.',
       status: 'pending',
-      agentId: params.id,
+      agentId: id,
     }, { status: 202 });
   } catch (error) {
     return NextResponse.json({

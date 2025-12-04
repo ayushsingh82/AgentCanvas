@@ -1,0 +1,21 @@
+{
+  "name": "debug-agent",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "@ai-sdk/anthropic": "^2.0.53",
+    "@ai-sdk/openai": "^2.0.75",
+    "ai": "^5.0.105",
+    "hono": "latest",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "latest",
+    "typescript": "latest",
+    "wrangler": "latest"
+  }
+}

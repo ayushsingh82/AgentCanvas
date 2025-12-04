@@ -1,0 +1,10 @@
+{
+  "name": "debug-agent",
+  "main": "src/index.ts",
+  "compatibility_date": "2024-12-19",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "AI_PROVIDER": "anthropic"
+  },
+
+}

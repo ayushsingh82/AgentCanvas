@@ -27,6 +27,10 @@ export interface DeploymentConfig {
   anthropicApiKey: string;
   cloudflareAccountId?: string;
   cloudflareApiToken?: string;
+  cdpApiKeyName?: string;
+  cdpApiKeyPrivateKey?: string;
+  cdpAgentKitNetwork?: string;
+  apiBaseUrl?: string;
 }
 
 export interface DeploymentResult {
@@ -42,7 +46,7 @@ export interface DeploymentResult {
  * This creates a temporary directory, generates code, and deploys
  */
 export async function deployToCloudflare(config: DeploymentConfig): Promise<DeploymentResult> {
-  const { agentName, agentId, tools, systemPrompt, anthropicApiKey, cloudflareAccountId, cloudflareApiToken } = config;
+  const { agentName, agentId, tools, systemPrompt, anthropicApiKey, cloudflareAccountId, cloudflareApiToken, cdpApiKeyName, cdpApiKeyPrivateKey, cdpAgentKitNetwork, apiBaseUrl } = config;
   
   // Generate unique worker name (max 54 chars for Cloudflare)
   // Format: ag-{short-timestamp}-{random}
@@ -153,7 +157,7 @@ export async function deployToCloudflare(config: DeploymentConfig): Promise<Depl
         );
         
         if (subdomainResponse.ok) {
-          const subdomainData = await subdomainResponse.json();
+          const subdomainData = await subdomainResponse.json() as { success?: boolean; result?: { subdomain?: string } };
           if (subdomainData.success && subdomainData.result?.subdomain) {
             subdomain = subdomainData.result.subdomain;
             agentChatURL = `https://${workerName}.${subdomain}.workers.dev/agent/chat`;
@@ -309,6 +313,99 @@ export async function deployToCloudflare(config: DeploymentConfig): Promise<Depl
       }
     } else {
       logger.warn('⚠️ No ANTHROPIC_API_KEY provided - agent will not work without it');
+    }
+    
+    // Set CDP secrets if provided (for AgentKit modules)
+    if (cdpApiKeyName && cdpApiKeyPrivateKey) {
+      logger.info('🔐 Setting CDP secrets for AgentKit...');
+      
+      // Set CDP_API_KEY_NAME
+      try {
+        const cdpNameFile = path.join(tempDir, '.cdp_name');
+        await fs.writeFile(cdpNameFile, cdpApiKeyName, { encoding: 'utf8', mode: 0o600 });
+        const cdpNameCmd = `cat "${cdpNameFile}" | npx wrangler secret put CDP_API_KEY_NAME --name ${workerName}`;
+        await execAsync(cdpNameCmd, { 
+          cwd: tempDir, 
+          timeout: 30000,
+          env: {
+            ...process.env,
+            CLOUDFLARE_API_TOKEN: cloudflareApiToken || process.env.CLOUDFLARE_API_TOKEN,
+            CLOUDFLARE_ACCOUNT_ID: cloudflareAccountId || process.env.CLOUDFLARE_ACCOUNT_ID,
+          }
+        });
+        logger.info('✅ CDP_API_KEY_NAME secret set successfully');
+      } catch (error) {
+        logger.warn('⚠️ Failed to set CDP_API_KEY_NAME secret:', error);
+      }
+      
+      // Set CDP_API_KEY_PRIVATE_KEY
+      try {
+        const cdpKeyFile = path.join(tempDir, '.cdp_key');
+        await fs.writeFile(cdpKeyFile, cdpApiKeyPrivateKey, { encoding: 'utf8', mode: 0o600 });
+        const cdpKeyCmd = `cat "${cdpKeyFile}" | npx wrangler secret put CDP_API_KEY_PRIVATE_KEY --name ${workerName}`;
+        await execAsync(cdpKeyCmd, { 
+          cwd: tempDir, 
+          timeout: 30000,
+          env: {
+            ...process.env,
+            CLOUDFLARE_API_TOKEN: cloudflareApiToken || process.env.CLOUDFLARE_API_TOKEN,
+            CLOUDFLARE_ACCOUNT_ID: cloudflareAccountId || process.env.CLOUDFLARE_ACCOUNT_ID,
+          }
+        });
+        logger.info('✅ CDP_API_KEY_PRIVATE_KEY secret set successfully');
+      } catch (error) {
+        logger.warn('⚠️ Failed to set CDP_API_KEY_PRIVATE_KEY secret:', error);
+      }
+      
+      // Set CDP_AGENT_KIT_NETWORK if provided (optional)
+      if (cdpAgentKitNetwork) {
+        try {
+          const cdpNetworkFile = path.join(tempDir, '.cdp_network');
+          await fs.writeFile(cdpNetworkFile, cdpAgentKitNetwork, { encoding: 'utf8', mode: 0o600 });
+          const cdpNetworkCmd = `cat "${cdpNetworkFile}" | npx wrangler secret put CDP_AGENT_KIT_NETWORK --name ${workerName}`;
+          await execAsync(cdpNetworkCmd, { 
+            cwd: tempDir, 
+            timeout: 30000,
+            env: {
+              ...process.env,
+              CLOUDFLARE_API_TOKEN: cloudflareApiToken || process.env.CLOUDFLARE_API_TOKEN,
+              CLOUDFLARE_ACCOUNT_ID: cloudflareAccountId || process.env.CLOUDFLARE_ACCOUNT_ID,
+            }
+          });
+          logger.info('✅ CDP_AGENT_KIT_NETWORK secret set successfully');
+        } catch (error) {
+          logger.warn('⚠️ Failed to set CDP_AGENT_KIT_NETWORK secret:', error);
+        }
+      }
+    } else {
+      logger.warn('⚠️ No CDP credentials provided - AgentKit modules will not work without CDP_API_KEY_NAME and CDP_API_KEY_PRIVATE_KEY');
+    }
+    
+    // Set API_BASE_URL secret if provided (for backend API calls)
+    if (apiBaseUrl) {
+      logger.info('🔗 Setting API_BASE_URL secret...');
+      try {
+        const apiBaseUrlFile = path.join(tempDir, '.api_base_url');
+        await fs.writeFile(apiBaseUrlFile, apiBaseUrl, { encoding: 'utf8', mode: 0o600 });
+        const apiBaseUrlCmd = `cat "${apiBaseUrlFile}" | npx wrangler secret put API_BASE_URL --name ${workerName}`;
+        await execAsync(apiBaseUrlCmd, { 
+          cwd: tempDir, 
+          timeout: 30000,
+          env: {
+            ...process.env,
+            CLOUDFLARE_API_TOKEN: cloudflareApiToken || process.env.CLOUDFLARE_API_TOKEN,
+            CLOUDFLARE_ACCOUNT_ID: cloudflareAccountId || process.env.CLOUDFLARE_ACCOUNT_ID,
+          }
+        });
+        logger.info(`✅ API_BASE_URL secret set successfully: ${apiBaseUrl}`);
+        await fs.unlink(apiBaseUrlFile).catch(() => {});
+      } catch (error) {
+        logger.warn('⚠️ Failed to set API_BASE_URL secret:', error);
+        logger.warn('⚠️ Agent will fallback to localhost:3000 (may not work from Cloudflare Workers)');
+      }
+    } else {
+      logger.warn('⚠️ No API_BASE_URL provided - agent will use localhost:3000 (may not work from Cloudflare Workers)');
+      logger.warn('⚠️ Set API_BASE_URL environment variable or pass it in job.apiKeys to point to your deployed backend');
     }
     
     logger.info(`Deployment successful! Agent URL: ${agentChatURL}`);

@@ -19,8 +19,21 @@
   }
 }
 
-body {
-  background: var(--background);
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  background: #ffffff;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+#__next {
+  margin: 0;
+  padding: 0;
 }

@@ -17,9 +17,10 @@ import {
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const { searchParams } = new URL(request.url);
     const walletAddress = searchParams.get('walletAddress');
     
@@ -30,7 +31,7 @@ export async function GET(
       }, { status: 400 });
     }
     
-    const agent = await getAgentByIdAndWallet(params.id, walletAddress);
+    const agent = await getAgentByIdAndWallet(id, walletAddress);
     
     if (!agent) {
       return NextResponse.json({
@@ -67,9 +68,10 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const body = await request.json();
     const { walletAddress, ...updates } = body;
     
@@ -80,7 +82,7 @@ export async function PUT(
       }, { status: 400 });
     }
     
-    const agent = await updateAgent(params.id, walletAddress, updates);
+    const agent = await updateAgent(id, walletAddress, updates);
     
     if (!agent) {
       return NextResponse.json({
@@ -107,9 +109,10 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const { searchParams } = new URL(request.url);
     const walletAddress = searchParams.get('walletAddress');
     
@@ -120,7 +123,7 @@ export async function DELETE(
       }, { status: 400 });
     }
     
-    const deleted = await deleteAgent(params.id, walletAddress);
+    const deleted = await deleteAgent(id, walletAddress);
     
     if (!deleted) {
       return NextResponse.json({

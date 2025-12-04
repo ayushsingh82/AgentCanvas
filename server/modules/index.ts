@@ -5,14 +5,29 @@
 
 import { getHelloModule, ModuleToolDefinition } from './hello';
 import { getTokenFactoryModule } from './tokenFactory';
+import { getCreateTokenModule } from './createToken';
+import { getCreateNFTModule } from './createNFT';
+import { getCreateDAOModule } from './createDAO';
+import { getMakeTransactionModule } from './makeTransaction';
+import { getAirdropModule } from './airdrop';
+import { getTransferFundsModule } from './transferFunds';
+import { getDeployContractModule } from './deployContract';
+import { getReadContractModule } from './readContract';
+import { getWriteContractModule } from './writeContract';
 
 // Registry of all available modules
 const moduleRegistry: Record<string, () => ModuleToolDefinition> = {
   hello: getHelloModule,
   tokenFactory: getTokenFactoryModule,
-  // Add more modules here as they are created
-  // nftFactory: getNftFactoryModule,
-  // etc.
+  createToken: getCreateTokenModule,
+  createNFT: getCreateNFTModule,
+  createDAO: getCreateDAOModule,
+  makeTransaction: getMakeTransactionModule,
+  airdrop: getAirdropModule,
+  transferFunds: getTransferFundsModule,
+  deployContract: getDeployContractModule,
+  readContract: getReadContractModule,
+  writeContract: getWriteContractModule,
 };
 
 /**

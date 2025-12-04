@@ -25,31 +25,38 @@ import { AgentNode } from "./components/nodes/agent-node";
 import NodeLibrary from "./components/node-library";
 import CustomEdge from "./components/custom-edge";
 import { generateNodeId, createNode } from "@/lib/workflow-utils";
+import Link from "next/link";
+import { WalletButton } from "@/components/wallet-button";
+import { DeployModal } from "./components/deploy-modal";
 
 export const dynamic = 'force-dynamic';
 
 const toolTypes = [
-  "memory_store_get", "memory_store_put", "memory_store_delete", "memory_store_list",
-  "queue_send", "queue_send_batch", "queue_send_delayed", "queue_consume",
-  "analytics_write", "analytics_write_batch", "analytics_query"
+  // Onchain Actions
+  "mint_token", "mint_nft", "transfer_asset", "create_dao",
+  // Onchain Data
+  "fetch_price", "fetch_states", "fetch_balance", "fetch_transactions",
+  // Productivity
+  "send_email", "set_reminder", "create_task", "schedule_meeting"
 ];
 
 const nodeTypes: NodeTypes = {
   agent: AgentNode,
-  // Memory Store operations
-  memory_store_get: ToolNode,
-  memory_store_put: ToolNode,
-  memory_store_delete: ToolNode,
-  memory_store_list: ToolNode,
-  // Queue operations
-  queue_send: ToolNode,
-  queue_send_batch: ToolNode,
-  queue_send_delayed: ToolNode,
-  queue_consume: ToolNode,
-  // Analytics operations
-  analytics_write: ToolNode,
-  analytics_write_batch: ToolNode,
-  analytics_query: ToolNode,
+  // Onchain Actions
+  mint_token: ToolNode,
+  mint_nft: ToolNode,
+  transfer_asset: ToolNode,
+  create_dao: ToolNode,
+  // Onchain Data
+  fetch_price: ToolNode,
+  fetch_states: ToolNode,
+  fetch_balance: ToolNode,
+  fetch_transactions: ToolNode,
+  // Productivity
+  send_email: ToolNode,
+  set_reminder: ToolNode,
+  create_task: ToolNode,
+  schedule_meeting: ToolNode,
 };
 
 const edgeTypes: EdgeTypes = {
@@ -78,6 +85,7 @@ export default function AgentBuilderPage() {
   const [nodes, setNodes, onNodesChange] = useNodesState([createAgentNode()]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance | null>(null);
+  const [isDeployModalOpen, setIsDeployModalOpen] = useState(false);
 
   const handleNodesChange = useCallback(
     (changes: NodeChange[]) => {
@@ -155,15 +163,30 @@ export default function AgentBuilderPage() {
   );
 
   return (
-    <div className="flex h-[calc(100vh-120px)] bg-white">
+    <div className="flex bg-white font-sans tracking-tight" style={{ height: '100vh', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}>
       {/* Left Sidebar */}
-      <div className="w-64 border-r-2 border-black p-4 pt-24 bg-white overflow-y-auto">
-        <NodeLibrary />
+      <div className="w-64 border-r-2 border-black bg-white overflow-y-auto h-full flex flex-col">
+        {/* Logo in Sidebar */}
+        <div className="p-4 border-b-2 border-black">
+          <Link href="/" className="focus:outline-none">
+            <button className="border-2 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] px-6 py-4 rounded-lg cursor-pointer text-2xl font-black text-black leading-tight w-full" style={{ backgroundColor: '#FFD1B3' }}>
+              <div className="flex flex-col">
+                <span>AGENT</span>
+                <span>CANVAS</span>
+              </div>
+            </button>
+          </Link>
+        </div>
+        {/* Node Library */}
+        <div className="flex-1 overflow-y-auto p-4">
+          <NodeLibrary />
+        </div>
       </div>
 
-      {/* Right Canvas */}
-      <div className="flex-1 flex flex-col">
-        <div className="flex-1" ref={reactFlowWrapper}>
+      {/* Right Canvas Area */}
+      <div className="flex-1 flex flex-col bg-white h-full relative">
+        {/* Canvas */}
+        <div className="flex-1 w-full h-full" ref={reactFlowWrapper}>
           <ReactFlowProvider>
             <ReactFlow
               nodes={nodes}
@@ -184,7 +207,8 @@ export default function AgentBuilderPage() {
               <Background />
               <Controls />
               <MiniMap />
-              <Panel position="top-left" className="pt-6 pl-6">
+              {/* Top Bar above Canvas */}
+              <Panel position="top-left" className="pt-4 pl-4">
                 <button 
                   onClick={() => router.push("/my-agents")}
                   className="border-2 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] px-5 py-2 rounded-lg text-sm font-bold text-black hover:shadow-[2px_2px_0_0_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200"
@@ -193,10 +217,29 @@ export default function AgentBuilderPage() {
                   ← Back
                 </button>
               </Panel>
+              <Panel position="top-right" className="pt-4 pr-4">
+                <div className="flex items-center gap-3">
+                  <button 
+                    onClick={() => setIsDeployModalOpen(true)}
+                    className="border-2 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] px-5 py-2 rounded-lg text-sm font-bold text-black hover:shadow-[2px_2px_0_0_rgba(0,0,0,1)] hover:translate-x-[1px] hover:translate-y-[1px] transition-all duration-200" 
+                    style={{ backgroundColor: '#FFD1B3' }}
+                  >
+                    Deploy Agent
+                  </button>
+                  <WalletButton />
+                </div>
+              </Panel>
             </ReactFlow>
           </ReactFlowProvider>
         </div>
       </div>
+      
+      {/* Deploy Modal */}
+      <DeployModal 
+        isOpen={isDeployModalOpen} 
+        onClose={() => setIsDeployModalOpen(false)}
+        nodes={nodes}
+      />
     </div>
   );
 }

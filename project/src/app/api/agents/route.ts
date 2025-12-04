@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
       agents: agents.map(agent => {
         const metadata = agentToMetadata(agent);
         return {
-          id: agent._id.toString(),
+        id: agent._id.toString(),
           name: metadata.name,
           description: metadata.description,
           tags: metadata.tags,
@@ -46,7 +46,7 @@ export async function GET(request: NextRequest) {
           createdAt: metadata.createdAt,
           updatedAt: metadata.updatedAt,
           deployedAt: metadata.deployedAt,
-          modules: agent.modules,
+        modules: agent.modules,
         };
       }),
     }, { status: 200 });

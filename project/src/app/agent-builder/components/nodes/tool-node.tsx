@@ -3,55 +3,55 @@
 import { memo } from "react";
 import { Handle, Position, type NodeProps } from "reactflow";
 import {
+  Coins,
+  Image,
+  ArrowRightLeft,
+  Users,
+  DollarSign,
   Database,
-  List,
-  BarChart3,
-  Search,
-  Save,
-  Trash2,
-  List as ListIcon,
-  Send,
-  SendHorizonal,
-  Clock,
-  Download,
+  Wallet,
   FileText,
-  FileText as FileTextBatch,
-  Database as DatabaseQuery,
+  Mail,
+  Bell,
+  CheckSquare,
+  Calendar,
 } from "lucide-react";
 import type { NodeData } from "@/lib/types";
 
 const toolIcons: Record<string, React.ReactNode> = {
-  // Memory Store operations
-  memory_store_get: <Search className="h-4 w-4" />,
-  memory_store_put: <Save className="h-4 w-4" />,
-  memory_store_delete: <Trash2 className="h-4 w-4" />,
-  memory_store_list: <ListIcon className="h-4 w-4" />,
-  // Queue operations
-  queue_send: <Send className="h-4 w-4" />,
-  queue_send_batch: <SendHorizonal className="h-4 w-4" />,
-  queue_send_delayed: <Clock className="h-4 w-4" />,
-  queue_consume: <Download className="h-4 w-4" />,
-  // Analytics operations
-  analytics_write: <FileText className="h-4 w-4" />,
-  analytics_write_batch: <FileTextBatch className="h-4 w-4" />,
-  analytics_query: <DatabaseQuery className="h-4 w-4" />,
+  // Onchain Actions
+  mint_token: <Coins className="h-4 w-4" />,
+  mint_nft: <Image className="h-4 w-4" />,
+  transfer_asset: <ArrowRightLeft className="h-4 w-4" />,
+  create_dao: <Users className="h-4 w-4" />,
+  // Onchain Data
+  fetch_price: <DollarSign className="h-4 w-4" />,
+  fetch_states: <Database className="h-4 w-4" />,
+  fetch_balance: <Wallet className="h-4 w-4" />,
+  fetch_transactions: <FileText className="h-4 w-4" />,
+  // Productivity
+  send_email: <Mail className="h-4 w-4" />,
+  set_reminder: <Bell className="h-4 w-4" />,
+  create_task: <CheckSquare className="h-4 w-4" />,
+  schedule_meeting: <Calendar className="h-4 w-4" />,
 };
 
 const toolColors: Record<string, { border: string; bg: string; text: string }> = {
-  // Memory Store operations (blue variants)
-  memory_store_get: { border: "border-blue-500", bg: "bg-blue-100", text: "text-blue-500" },
-  memory_store_put: { border: "border-blue-600", bg: "bg-blue-100", text: "text-blue-600" },
-  memory_store_delete: { border: "border-blue-400", bg: "bg-blue-50", text: "text-blue-400" },
-  memory_store_list: { border: "border-blue-700", bg: "bg-blue-100", text: "text-blue-700" },
-  // Queue operations (indigo variants)
-  queue_send: { border: "border-indigo-500", bg: "bg-indigo-100", text: "text-indigo-500" },
-  queue_send_batch: { border: "border-indigo-600", bg: "bg-indigo-100", text: "text-indigo-600" },
-  queue_send_delayed: { border: "border-indigo-400", bg: "bg-indigo-50", text: "text-indigo-400" },
-  queue_consume: { border: "border-indigo-700", bg: "bg-indigo-100", text: "text-indigo-700" },
-  // Analytics operations (teal variants)
-  analytics_write: { border: "border-teal-500", bg: "bg-teal-100", text: "text-teal-500" },
-  analytics_write_batch: { border: "border-teal-600", bg: "bg-teal-100", text: "text-teal-600" },
-  analytics_query: { border: "border-teal-700", bg: "bg-teal-100", text: "text-teal-700" },
+  // Onchain Actions (blue variants)
+  mint_token: { border: "border-blue-500", bg: "bg-blue-100", text: "text-blue-500" },
+  mint_nft: { border: "border-blue-600", bg: "bg-blue-100", text: "text-blue-600" },
+  transfer_asset: { border: "border-blue-400", bg: "bg-blue-50", text: "text-blue-400" },
+  create_dao: { border: "border-blue-700", bg: "bg-blue-100", text: "text-blue-700" },
+  // Onchain Data (indigo variants)
+  fetch_price: { border: "border-indigo-500", bg: "bg-indigo-100", text: "text-indigo-500" },
+  fetch_states: { border: "border-indigo-600", bg: "bg-indigo-100", text: "text-indigo-600" },
+  fetch_balance: { border: "border-indigo-400", bg: "bg-indigo-50", text: "text-indigo-400" },
+  fetch_transactions: { border: "border-indigo-700", bg: "bg-indigo-100", text: "text-indigo-700" },
+  // Productivity (teal variants)
+  send_email: { border: "border-teal-500", bg: "bg-teal-100", text: "text-teal-500" },
+  set_reminder: { border: "border-teal-600", bg: "bg-teal-100", text: "text-teal-600" },
+  create_task: { border: "border-teal-400", bg: "bg-teal-50", text: "text-teal-400" },
+  schedule_meeting: { border: "border-teal-700", bg: "bg-teal-100", text: "text-teal-700" },
 };
 
 export const ToolNode = memo(({ data, type, isConnectable }: NodeProps<NodeData>) => {
