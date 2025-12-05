@@ -26,6 +26,7 @@ import NodeLibrary from "./components/node-library";
 import CustomEdge from "./components/custom-edge";
 import { generateNodeId, createNode } from "@/lib/workflow-utils";
 import Link from "next/link";
+import Image from "next/image";
 import { WalletButton } from "@/components/wallet-button";
 import { DeployModal } from "./components/deploy-modal";
 
@@ -169,7 +170,14 @@ export default function AgentBuilderPage() {
         {/* Logo in Sidebar */}
         <div className="p-4 border-b-2 border-black">
           <Link href="/" className="focus:outline-none">
-            <button className="border-2 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] px-6 py-4 rounded-lg cursor-pointer text-2xl font-black text-black leading-tight w-full" style={{ backgroundColor: '#FFD1B3' }}>
+            <button className="border-2 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] px-6 py-2 rounded-lg cursor-pointer text-2xl font-black text-black leading-tight w-full flex items-center gap-3" style={{ backgroundColor: '#FFD1B3' }}>
+              <Image 
+                src="/logo.png" 
+                alt="Agent Canvas Logo" 
+                width={60} 
+                height={60}
+                className="object-contain"
+              />
               <div className="flex flex-col">
                 <span>AGENT</span>
                 <span>CANVAS</span>

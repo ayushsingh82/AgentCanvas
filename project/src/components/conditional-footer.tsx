@@ -11,7 +11,7 @@ export function ConditionalFooter() {
   }
 
   return (
-    <footer className="border-t-2 border-black px-10 py-6 flex items-center justify-between text-base text-black" style={{ margin: 0 }}>
+    <footer className="border-t-2 border-black px-10 py-4 flex items-center justify-between text-base text-black bg-white mt-auto">
       <span className="font-black text-lg tracking-tight">AGENT CANVAS</span>
       <div className="flex items-center gap-5 pr-2">
         <a

@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useWalletAddress } from '@/hooks/use-wallet-address';
 import { Send } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { WalletButton } from '@/components/wallet-button';
 
 interface Message {
@@ -188,7 +189,14 @@ export default function ChatPage() {
       {/* Top Bar with Bottom Border */}
       <div className="border-b-2 border-black px-6 py-4 flex items-center justify-between bg-white flex-shrink-0">
         <Link href="/" className="focus:outline-none">
-          <button className="border-2 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] px-6 py-4 rounded-lg cursor-pointer text-2xl font-black text-black leading-tight" style={{ backgroundColor: '#FFD1B3' }}>
+          <button className="border-2 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] px-6 py-2 rounded-lg cursor-pointer text-2xl font-black text-black leading-tight flex items-center gap-3" style={{ backgroundColor: '#FFD1B3' }}>
+            <Image 
+              src="/logo.png" 
+              alt="Agent Canvas Logo" 
+              width={60} 
+              height={60}
+              className="object-contain"
+            />
             <div className="flex flex-col">
               <span>AGENT</span>
               <span>CANVAS</span>

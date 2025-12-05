@@ -29,7 +29,7 @@ export default function Landing() {
   const [expandedFaq, setExpandedFaq] = React.useState<number | null>(null);
 
   return (
-    <div className="bg-white font-sans tracking-tight pt-[136px] pb-24">
+    <div className="bg-white font-sans tracking-tight pt-40 pb-24">
       {/* MAIN CONTENT - BENTO GRID */}
       <div className="max-w-5xl mx-auto px-4 pb-24">
         <div className="grid grid-cols-12 gap-6 auto-rows-[180px]">
